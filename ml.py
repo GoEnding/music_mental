@@ -6,6 +6,14 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import MinMaxScaler
+from  PIL import Image
+from matplotlib import font_manager, rc
+import platform
+plt.rcParams['axes.unicode_minus'] = False
+if platform.system() == 'Linux':
+    rc('font', family='NanumGothic')
+
+
 def ml_st():
     df = pd.read_csv('music_mental.csv')
     df = df.iloc[ : , 1: ]
@@ -64,10 +72,10 @@ def ml_st():
     language = st.radio('자신이 유창하지 않은 언어로 가사가 있는 음악을 정기적으로 듣나요?', key=language_key, options=key)
     if language == 'Yes':
         language = 1
-    elif quest == 'No':
+    elif language == 'No':
         language = 0
 
-    st.write('###### 주로 듣는 노래들의 BPM이 몇인지 입력해주세요.')
+    st.write('###### 주로 듣는 노래들의 BPM이 몇인지 대략적으로 입력해주세요.')
     bpm = st.number_input('BPM 입력', min_value=0, max_value=200, value= 120)
 
     st.subheader('※장르별 음악을 얼마나 자주 듣는지 골라주시면 됩니다.')
@@ -114,25 +122,23 @@ def ml_st():
 
     if st.button('예측하기'):
         classifier = joblib.load('classifier.pkl')
-        print(classifier)
         ct = joblib.load('ct1.pkl')
- 
-        # 범주형 변수를 One-hot encoding하여 새로운 열을 생성
-        
-        
         new_data = [age, day_hours, job_music, inst, compose,my_choice, quest, language, bpm, my_select1, my_select2, my_select3, my_select4,
                     my_select5, my_select6, my_select7, my_select8, my_select9, my_select10, my_select11, my_select12, my_select13,
                     my_select14, my_select15, my_select16, anx, dep, slp, ocd]
-        
-        print(new_data)
-
         new_data = np.array(new_data).reshape(1, -1)
-        print(new_data)
         new_data = ct.transform(new_data)
         print(new_data)
+        new_data = new_data.astype('float')
         y_pred = classifier.predict(new_data)
-        print(y_pred)
-        st.text(f'{y_pred}')
+        if y_pred == 1:
+            st.write(f'###### 음악을 듣는것이 정신건강에 좋은 영향을 줄 수 있습니다!')
+            st.image('https://health.chosun.com/site/data/img_dir/2023/11/01/2023110102346_0.jpg')
+        elif y_pred == 0:
+            st.write(f'###### 음악을 듣는것이 정신건강에 영향을 주지 않습니다.')
+
+        
+
 
 
 if __name__ == '__main__':

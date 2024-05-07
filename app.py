@@ -1,11 +1,19 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 import streamlit.components.v1 as html
+import matplotlib.pyplot as plt
 from  PIL import Image
 import numpy as np
 import pandas as pd 
 import plotly.express as px
 import io
+
+from matplotlib import font_manager, rc
+import platform
+plt.rcParams['axes.unicode_minus'] = False
+if platform.system() == 'Linux':
+    rc('font', family='NanumGothic')
+
 from home import home_st
 from eda import eda_st
 from ml import ml_st
