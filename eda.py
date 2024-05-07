@@ -88,28 +88,24 @@ def eda_st():
         st.pyplot(plt.gcf())
 
         st.subheader('불안장애에 있어서 음악 장르 별 효과')
-        st.write('###### 이 지역 사람들은 재즈, 로피, K팝 노래를 듣는 사람들은 하루에 몇 시간씩 음악을 들으면서 기분과 전반적인 웰빙이 향상되는 것을 경험하는 경향이 있습니다.')
         fig, ax = plt.subplots(figsize=(15, 7))
         sb.barplot(data=df, x="선호 음악 장르", y="불안 장애", hue="음악 효과", errwidth=0, palette="mako_r", ax=ax)
         ax.set_xticklabels(ax.get_xticklabels(), rotation=67)
         st.pyplot(fig)
 
         st.subheader('우울증에 있어서 음악 장르 별 효과')
-        st.write('###### 락, 비디오 게임 음악, 팝, 클래식 장르의 청취자들은 우울증 수준이 더 높은 경향이 있습니다.')
         fig, ax = plt.subplots(figsize=(15, 7))
         sb.barplot(data=df, x="선호 음악 장르", y="우울증", hue="음악 효과", errwidth=0, palette="mako_r", ax=ax)
         ax.set_xticklabels(ax.get_xticklabels(), rotation=67)
         st.pyplot(fig)
 
         st.subheader('불면증에 있어서 음악 장르 별 효과')
-        st.write('###### 록, 비디오 게임 음악, 팝, 랩, 클래식 음악을 듣는 사람들은 다양한 수준의 불안을 나타냅니다. 이 중 비디오 게임 음악 청취자들은 가장 높은 수준의 불안을 경험하는 경향이 있습니다.')
         fig, ax = plt.subplots(figsize=(15, 7))
         sb.barplot(data=df, x="선호 음악 장르", y="불면증", hue="음악 효과", errwidth=0, palette="mako_r", ax=ax)
         ax.set_xticklabels(ax.get_xticklabels(), rotation=67)
         st.pyplot(fig)
 
         st.subheader('강박증에 있어서 음악 장르 별 효과')
-        st.write('###### 락, 비디오 게임 음악, 팝, 클래식 장르의 청취자들은 우울증 수준이 더 높은 경향이 있습니다.')
         fig, ax = plt.subplots(figsize=(15, 7))
         sb.barplot(data=df, x="선호 음악 장르", y="강박증", hue="음악 효과", errwidth=0, palette="mako_r", ax=ax)
         ax.set_xticklabels(ax.get_xticklabels(), rotation=67)
